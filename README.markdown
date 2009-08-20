@@ -27,7 +27,7 @@ As an example, if you had a hierarchy of Page slugs matching the following:
         |- fame
         |- fortune
       |- plans
-      |- javascripts
+      |- javascripts    # Status of "Hidden"
         |- common.js
       |- stylesheets
         |- common.css
@@ -45,10 +45,9 @@ Electrostatic would generate a structure of directories and files like so:
       |- plans
          |- index.html
       |- javascripts
-        |- index.html    # This is true because you needed a page to get this hierarchy
         |- common.js
       |- stylesheets
-        |- index.html    # This is true because you needed a page to get this hierarchy
+        |- index.html    # This is true because stylesheets does not have a "Hidden" status
         |- common.css
         |- plans.css
 
