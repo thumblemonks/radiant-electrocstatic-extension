@@ -29,7 +29,7 @@ namespace :electrostatic do
   task :build => :environment do
     timestamp = Time.now.strftime("%Y%m%d%H%M%S")
     static_path = File.join('tmp', "electrostatic-#{timestamp}")
-    render_pages(static_path, timestamp)
+    render_pages(static_path)
     clone_from_public(static_path)
     compress_static_ball(timestamp)
   end
