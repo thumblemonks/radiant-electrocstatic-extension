@@ -33,6 +33,11 @@ namespace :electrostatic do
     clone_from_public(static_path)
     compress_static_ball(timestamp)
   end
+
+  "Clean up any electrostatic artifacts"
+  task :clean => :environment do
+    sh "rm -fr tmp/electrostatic-*"
+  end
 end
 
 #
