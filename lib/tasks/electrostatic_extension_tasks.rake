@@ -1,23 +1,29 @@
 #
 # All the right stuff
 
-def render_pages(base_dir)
+def render_pages(static_path)
   Page.all.each do |p|
     if (body = p.render)
       dir, filename = p.url, "index.html"
-      dir, filename = p.parent.url, p.slug if p.slug =~ /\.[a-z]+$/i # A specific filename (e.g. styles.css)
-      FileUtils.mkdir_p(File.join(base_dir, dir))
-      File.open(File.join(base_dir, dir, filename), 'w') { |io| io.print(body) }
+      dir, filename = p.parent.url, p.slug if p.slug =~ /\.[^.]+$/i # File with extension (e.g. styles.css)
+      FileUtils.mkdir_p(File.join(static_path, dir))
+      File.open(File.join(static_path, dir, filename), 'w') { |io| io.print(body) }
     else
       puts "Could not render #{p.id} - #{p.url}"
     end
   end
 end
 
+def copy_in_public(static_path)
+  FileUtils.cp_r('public/.', static_path)
+end
+
 namespace :electrostatic do
   desc "Generate rendered Pages, store in ./tmp directory, copy public directory in"
   task :build => :environment do
-    render_pages(File.join('tmp', 'static'))
+    static_path = File.join('tmp', 'static')
+    render_pages(static_path)
+    copy_in_public(static_path)
   end
 end
 
