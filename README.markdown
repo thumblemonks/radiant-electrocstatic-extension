@@ -69,7 +69,12 @@ Once installed, from the command line you run:
 
     rake electrostatic:build
 
-This will put everything in your app's local `tmp/static` directory. It will also create a bzip compressed tarball of that directory named `static-YYYYMMDDHHMMSS.tar.bz2`. You can do whatever you like with this file or the directory. The idea is to take it and put it in your production system as the content to be hosted.
+This will put everything in your app's local `tmp/ecstatic-TIMESTAMP` directory. It will also create a bzip compressed tarball of that directory named `ecstatic-TIMESTAMP.tar.bz2`. You can do whatever you like with this file or the directory. The idea is to take it and put it in your production system as the content to be hosted.
+
+## TODO
+
+* Make the compression more flexible (as in, support Windows users)
+* Things suggested by others
 
 ## License
 
