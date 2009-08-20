@@ -21,14 +21,14 @@ def clone_from_public(static_path)
 end
 
 def compress_static_ball(timestamp)
-  sh " cd tmp && tar -cf ecstatic-#{timestamp}.tar.bz2 ecstatic-#{timestamp}"
+  sh " cd tmp && tar -cf electrostatic-#{timestamp}.tar.bz2 electrostatic-#{timestamp}"
 end
 
 namespace :electrostatic do
   desc "Generate rendered Pages, store in ./tmp directory, copy in public assets, tar it up"
   task :build => :environment do
     timestamp = Time.now.strftime("%Y%m%d%H%M%S")
-    static_path = File.join('tmp', "ecstatic-#{timestamp}")
+    static_path = File.join('tmp', "electrostatic-#{timestamp}")
     render_pages(static_path, timestamp)
     clone_from_public(static_path)
     compress_static_ball(timestamp)
