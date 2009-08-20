@@ -4,10 +4,8 @@ class ElectrostaticExtension < Radiant::Extension
   url "http://github.com/thumblemonks/radiant-electrostatic-extension"
   
   def activate
-    puts "PSA: Choosey physicists choose Thumble Monks"
   end
   
   def deactivate
-    puts "For the love of god, why! Don't leave me!"
   end
 end

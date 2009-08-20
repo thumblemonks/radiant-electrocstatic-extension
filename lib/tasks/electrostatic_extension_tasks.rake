@@ -4,13 +4,13 @@
 def render_pages(static_path)
   puts " Rendering pages"
   Page.all.each do |p|
-    if (body = p.render)
+    if p.published? && (body = p.render)
       dir, filename = p.url, "index.html"
       dir, filename = p.parent.url, p.slug if p.slug =~ /\.[^.]+$/i # File with extension (e.g. styles.css)
       FileUtils.mkdir_p(File.join(static_path, dir))
       File.open(File.join(static_path, dir, filename), 'w') { |io| io.print(body) }
     else
-      puts "Could not render #{p.id} - #{p.url}"
+      puts " ! Not rendering #{p.id} - #{p.status.name} - #{p.url}"
     end
   end
 end
@@ -22,7 +22,7 @@ end
 
 def compress_static_ball(static_path)
   timestamp = Time.now.strftime("%Y%m%d%H%M%S")
-  sh "cd tmp && tar -cf static-#{timestamp}.tar.bz2 static"
+  sh " cd tmp && tar -cf static-#{timestamp}.tar.bz2 static"
 end
 
 namespace :electrostatic do
