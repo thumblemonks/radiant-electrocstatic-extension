@@ -2,6 +2,7 @@
 # All the right stuff
 
 def render_pages(static_path)
+  puts " Rendering pages"
   Page.all.each do |p|
     if (body = p.render)
       dir, filename = p.url, "index.html"
@@ -14,8 +15,14 @@ def render_pages(static_path)
   end
 end
 
-def copy_in_public(static_path)
+def clone_from_public(static_path)
+  puts " Copying in the public directory"
   FileUtils.cp_r('public/.', static_path)
+end
+
+def compress_static_ball(static_path)
+  timestamp = Time.now.strftime("%Y%m%d%H%M%S")
+  sh "cd tmp && tar -cf static-#{timestamp}.tar.bz2 static"
 end
 
 namespace :electrostatic do
@@ -23,7 +30,8 @@ namespace :electrostatic do
   task :build => :environment do
     static_path = File.join('tmp', 'static')
     render_pages(static_path)
-    copy_in_public(static_path)
+    clone_from_public(static_path)
+    compress_static_ball(static_path)
   end
 end
 
